@@ -1,5 +1,11 @@
 # @vanya2h/eslint-config
 
+## 0.3.0
+
+### Minor Changes
+
+- bfa027b: update dependencies and repo migration
+
 ## 0.2.1
 
 ### Patch Changes

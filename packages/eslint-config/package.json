@@ -1,6 +1,6 @@
 {
   "name": "@vanya2h/eslint-config",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "A set of useful eslint configs",
   "license": "MIT",
   "type": "module",

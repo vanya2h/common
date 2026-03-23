@@ -1,5 +1,11 @@
 # @vanya2h/utils
 
+## 0.2.0
+
+### Minor Changes
+
+- bfa027b: update dependencies and repo migration
+
 ## 0.1.2
 
 ### Patch Changes

@@ -1,0 +1,8 @@
+.turbo
+node_modules
+dist
+.env
+*.tsbuildinfo
+vite.config.ts.timestamp*
+.DS_Store
+build

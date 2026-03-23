@@ -1,0 +1,60 @@
+{
+  "name": "@vanya2h/utils",
+  "version": "0.1.2",
+  "description": "A set of useful common typescript utilities",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.cjs"
+    },
+    "./common": {
+      "import": "./dist/common.js",
+      "types": "./dist/common.d.ts",
+      "default": "./dist/common.cjs"
+    },
+    "./typeUtils": {
+      "import": "./dist/typeUtils.js",
+      "types": "./dist/typeUtils.d.ts",
+      "default": "./dist/typeUtils.cjs"
+    }
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "check-types": "tsc -b --noEmit",
+    "clean": "rimraf ./dist",
+    "dev": "tsup --watch --silent",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prepublishOnly": "pnpm run build",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@vanya2h/eslint-config": "workspace:*",
+    "@vanya2h/typescript-config": "workspace:*",
+    "eslint": "^9.21.0",
+    "jiti": "^2.4.2",
+    "rimraf": "^6.0.1",
+    "tsup": "^8.3.6",
+    "tsx": "^4.19.2",
+    "vitest": "^3.0.5",
+    "zod": "^3.24.2"
+  },
+  "peerDependencies": {
+    "zod": "^3.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  }
+}

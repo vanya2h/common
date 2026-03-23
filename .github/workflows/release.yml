@@ -43,7 +43,7 @@ jobs:
       - name: Check for version changes
         id: changes
         run: |
-          if git diff --quiet && git diff --cached --quiet; then
+          if git diff --quiet -- '**/package.json' '**/CHANGELOG.md' '.changeset/**'; then
             echo "has_changes=false" >> $GITHUB_OUTPUT
           else
             echo "has_changes=true" >> $GITHUB_OUTPUT

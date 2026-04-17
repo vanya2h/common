@@ -38,6 +38,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Exit pre-release mode
+        run: |
+          if [ -f .changeset/pre.json ]; then
+            npx changeset pre exit
+            git add .changeset/pre.json
+            git commit -m "chore: exit pre-release mode [skip ci]"
+          fi
+
       - name: Version packages
         run: npx changeset version
 

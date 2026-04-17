@@ -50,28 +50,16 @@ jobs:
       - name: Version packages
         run: npx changeset version
 
-      - name: Check for version changes
-        id: changes
-        run: |
-          if git diff HEAD --quiet; then
-            echo "has_changes=false" >> $GITHUB_OUTPUT
-          else
-            echo "has_changes=true" >> $GITHUB_OUTPUT
-          fi
-
       - name: Push version bumps
-        if: steps.changes.outputs.has_changes == 'true'
         run: git push
 
       - name: Re-install dependencies
-        if: steps.changes.outputs.has_changes == 'true'
         run: pnpm install --frozen-lockfile
 
       - name: Build
         run: pnpm run build
 
       - name: Publish RC packages
-        if: steps.changes.outputs.has_changes == 'true'
         run: pnpm changeset publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

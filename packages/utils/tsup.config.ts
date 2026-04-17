@@ -9,6 +9,8 @@ export default defineConfig({
   entry: {
     common: path.join(config.srcDir, "common/index.ts"),
     typeUtils: path.join(config.srcDir, "typeUtils/index.ts"),
+    zod: path.join(config.srcDir, "zod/index.ts"),
+    models: path.join(config.srcDir, "models/index.ts"),
     index: path.join(config.srcDir, "index.ts"),
   },
 });

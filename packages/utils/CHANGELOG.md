@@ -1,5 +1,11 @@
 # @vanya2h/utils
 
+## 0.4.0-rc.0
+
+### Minor Changes
+
+- 319ddec: Add models, zod utilities, and serializeApi to utils package
+
 ## 0.2.0
 
 ### Minor Changes

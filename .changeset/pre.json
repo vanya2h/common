@@ -1,0 +1,10 @@
+{
+  "mode": "pre",
+  "tag": "rc",
+  "initialVersions": {
+    "@vanya2h/eslint-config": "0.3.0",
+    "@vanya2h/typescript-config": "0.3.0",
+    "@vanya2h/utils": "0.3.0"
+  },
+  "changesets": []
+}

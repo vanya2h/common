@@ -19,6 +19,16 @@
       "import": "./dist/typeUtils.js",
       "types": "./dist/typeUtils.d.ts",
       "default": "./dist/typeUtils.cjs"
+    },
+    "./zod": {
+      "import": "./dist/zod.js",
+      "types": "./dist/zod.d.ts",
+      "default": "./dist/zod.cjs"
+    },
+    "./models": {
+      "import": "./dist/models.js",
+      "types": "./dist/models.d.ts",
+      "default": "./dist/models.cjs"
     }
   },
   "main": "./dist/index.js",
@@ -38,7 +48,10 @@
     "prepublishOnly": "pnpm run build",
     "test": "vitest run --passWithNoTests"
   },
-  "dependencies": {},
+  "dependencies": {
+    "zod": "^4.3.6",
+    "viem": "^2.48.1"
+  },
   "devDependencies": {
     "@vanya2h/eslint-config": "workspace:*",
     "@vanya2h/typescript-config": "workspace:*",
@@ -47,11 +60,7 @@
     "rimraf": "^6.0.1",
     "tsup": "^8.3.6",
     "tsx": "^4.19.2",
-    "vitest": "^3.0.5",
-    "zod": "^3.24.2"
-  },
-  "peerDependencies": {
-    "zod": "^3.0.0"
+    "vitest": "^3.0.5"
   },
   "publishConfig": {
     "access": "public",

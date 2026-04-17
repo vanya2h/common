@@ -1,0 +1,77 @@
+name: RC Release
+
+on:
+  push:
+    branches:
+      - staging
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  rc-release:
+    name: Publish RC Packages
+    runs-on: ubuntu-latest
+    environment: staging
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.PAT_TOKEN }}
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Enter pre-release mode
+        run: |
+          if [ ! -f .changeset/pre.json ]; then
+            npx changeset pre enter rc
+            git add .changeset/pre.json
+            git commit -m "chore: enter pre-release mode [skip ci]"
+          fi
+
+      - name: Version packages
+        run: npx changeset version
+
+      - name: Check for version changes
+        id: changes
+        run: |
+          if git diff HEAD --quiet; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Push version bumps
+        if: steps.changes.outputs.has_changes == 'true'
+        run: git push
+
+      - name: Re-install dependencies
+        if: steps.changes.outputs.has_changes == 'true'
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm run build
+
+      - name: Publish RC packages
+        if: steps.changes.outputs.has_changes == 'true'
+        run: pnpm changeset publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

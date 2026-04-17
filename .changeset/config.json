@@ -2,7 +2,7 @@
   "$schema": "https://unpkg.com/@changesets/config@3.0.5/schema.json",
   "changelog": "@changesets/cli/changelog",
   "commit": ["@changesets/cli/commit", { "skipCI": "version" }],
-  "fixed": [],
+  "fixed": [["@vanya2h/eslint-config", "@vanya2h/typescript-config", "@vanya2h/utils"]],
   "linked": [],
   "access": "public",
   "baseBranch": "main",

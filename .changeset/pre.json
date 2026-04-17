@@ -6,5 +6,7 @@
     "@vanya2h/typescript-config": "0.3.0",
     "@vanya2h/utils": "0.3.0"
   },
-  "changesets": []
+  "changesets": [
+    "swift-lions"
+  ]
 }

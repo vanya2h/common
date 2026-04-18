@@ -5,7 +5,6 @@ Analyze the current git status, prepare a commit plan, and execute it after user
 1. **Analyze git status** — Run `git status` and `git diff --stat` to get a full picture of all staged, unstaged, and untracked changes. Group changes by type (modified, new, deleted, renamed).
 
 2. **Prepare commit plan** — Present a clear summary to the user:
-
    - List all files that will be committed, grouped by change type
    - Suggest logical grouping if changes span unrelated areas (e.g., "commit all trading notes together, then research notes separately") — but default to a single commit if changes are related
    - Show the exact `git add` and `git commit` commands that will be executed

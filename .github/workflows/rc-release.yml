@@ -31,7 +31,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 25
           cache: pnpm
           registry-url: https://registry.npmjs.org
 
@@ -62,3 +62,10 @@ jobs:
         run: pnpm changeset publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Sync version bumps to develop
+        run: |
+          git fetch origin develop
+          git checkout develop
+          git merge staging --no-edit
+          git push origin develop

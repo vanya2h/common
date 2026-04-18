@@ -38,11 +38,12 @@ git diff @{u}..HEAD --name-only
 
 Map changed files to packages by their directory prefix:
 
-| Directory prefix | Package name |
-|---|---|
-| `packages/utils/` | `@vanya2h/utils` |
-| `packages/eslint-config/` | `@vanya2h/eslint-config` |
+| Directory prefix              | Package name                 |
+| ----------------------------- | ---------------------------- |
+| `packages/utils/`             | `@vanya2h/utils`             |
+| `packages/eslint-config/`     | `@vanya2h/eslint-config`     |
 | `packages/typescript-config/` | `@vanya2h/typescript-config` |
+| `packages/prettier-config/`   | `@vanya2h/prettier-config`   |
 
 Also check what packages are already covered by existing changesets. Look at all `.changeset/*.md` files (excluding `README.md`) already tracked or staged in the branch:
 
@@ -60,6 +61,7 @@ Read any existing changeset files to see which packages and bump types they alre
    - **Create a new changeset file** at `.changeset/<random-slug>.md` if it's cleaner to keep them separate.
 
    Changeset format:
+
    ```
    ---
    "<package-name>": <bump-type>

@@ -53,11 +53,12 @@ git diff origin/develop...HEAD --name-only
 
 Map changed files to packages by their directory prefix:
 
-| Directory prefix | Package name |
-|---|---|
-| `packages/utils/` | `@vanya2h/utils` |
-| `packages/eslint-config/` | `@vanya2h/eslint-config` |
+| Directory prefix              | Package name                 |
+| ----------------------------- | ---------------------------- |
+| `packages/utils/`             | `@vanya2h/utils`             |
+| `packages/eslint-config/`     | `@vanya2h/eslint-config`     |
 | `packages/typescript-config/` | `@vanya2h/typescript-config` |
+| `packages/prettier-config/`   | `@vanya2h/prettier-config`   |
 
 If any published packages have changed **and** there is no existing `.changeset/*.md` file (excluding `README.md`):
 
@@ -72,7 +73,7 @@ If any published packages have changed **and** there is no existing `.changeset/
    <one-line summary of the change>
    ```
 
-   List **every** affected package in the frontmatter. For example if both `utils` and `evm-contracts` changed:
+   List **every** affected package in the frontmatter. For example if both `utils` and `eslint-config` changed:
 
    ```
    ---

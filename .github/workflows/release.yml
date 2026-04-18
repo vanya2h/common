@@ -68,6 +68,6 @@ jobs:
           for branch in staging develop; do
             git fetch origin $branch
             git checkout $branch
-            git merge main --no-edit
+            git merge main --no-edit -X theirs
             git push origin $branch
           done

@@ -14,6 +14,9 @@ importers:
       '@types/node':
         specifier: ^25.5.0
         version: 25.5.0
+      '@vanya2h/prettier-config':
+        specifier: workspace:*
+        version: link:packages/prettier-config
       prettier:
         specifier: ^3.8.1
         version: 3.8.1
@@ -41,6 +44,9 @@ importers:
       '@typescript-eslint/parser':
         specifier: ^8.54.0
         version: 8.57.1(eslint@9.39.4(jiti@2.6.1))(typescript@5.9.3)
+      '@vanya2h/prettier-config':
+        specifier: workspace:*
+        version: link:../prettier-config
       eslint-config-prettier:
         specifier: ^10.1.8
         version: 10.1.8(eslint@9.39.4(jiti@2.6.1))
@@ -75,6 +81,18 @@ importers:
       eslint:
         specifier: ^9.39.2
         version: 9.39.4(jiti@2.6.1)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  packages/prettier-config:
+    devDependencies:
+      '@vanya2h/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      prettier:
+        specifier: ^3.0.0
+        version: 3.8.1
       typescript:
         specifier: ^5.9.3
         version: 5.9.3

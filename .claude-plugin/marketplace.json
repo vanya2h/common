@@ -1,0 +1,15 @@
+{
+  "name": "vanya2h-common",
+  "owner": {
+    "name": "vanya2h",
+    "email": "hi@vanya2h.me"
+  },
+  "plugins": [
+    {
+      "name": "integrate-configs",
+      "source": ".",
+      "description": "Integrate @vanya2h/eslint-config, @vanya2h/prettier-config, and @vanya2h/typescript-config into any TypeScript project. Detects existing configs and asks before replacing.",
+      "version": "1.0.0"
+    }
+  ]
+}

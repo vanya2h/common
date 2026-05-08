@@ -1,6 +1,6 @@
 {
   "name": "@vanya2h/async-actions",
-  "version": "0.5.0-rc.1",
+  "version": "0.5.0",
   "description": "Composable async action pipelines with status tracking and retries",
   "license": "MIT",
   "type": "module",

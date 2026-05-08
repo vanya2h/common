@@ -82,11 +82,11 @@ For `tsconfig.json` specifically: even when replacing, **preserve** user-set `co
 
 Based on which configs will be written, install needed packages per target package (or at workspace root for monorepos using a single shared config). Run installs without asking — show the command line as it runs.
 
-| Config      | Packages                                    |
-| ----------- | ------------------------------------------- |
-| ESLint      | `@vanya2h/eslint-config eslint typescript`  |
-| Prettier    | `@vanya2h/prettier-config prettier`         |
-| TypeScript  | `@vanya2h/typescript-config typescript`     |
+| Config     | Packages                                   |
+| ---------- | ------------------------------------------ |
+| ESLint     | `@vanya2h/eslint-config eslint typescript` |
+| Prettier   | `@vanya2h/prettier-config prettier`        |
+| TypeScript | `@vanya2h/typescript-config typescript`    |
 
 Use the package manager detected in Step 2:
 

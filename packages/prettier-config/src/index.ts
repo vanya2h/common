@@ -6,5 +6,4 @@ export default {
   singleQuote: false,
   printWidth: 120,
   tabWidth: 2,
-} satisfies Config
-
+} satisfies Config;

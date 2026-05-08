@@ -63,7 +63,7 @@ Follow these steps:
     git push -u origin release/v{version}
     ```
 
-12. Read the content of `docs/releases/{version}.md` and create a pull request using the `gh` CLI with:
+11. Read the content of `docs/releases/{version}.md` and create a pull request using the `gh` CLI with:
     - Title: `Release v{version}`
     - Base branch: `main`
     - Body: the full content of the release notes file
@@ -72,4 +72,4 @@ Follow these steps:
     gh pr create --title "Release v{version}" --base main --body "$(cat docs/releases/{version}.md)"
     ```
 
-13. Return the PR URL to the user.
+12. Return the PR URL to the user.

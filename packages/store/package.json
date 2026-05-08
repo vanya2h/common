@@ -1,6 +1,6 @@
 {
   "name": "@vanya2h/store",
-  "version": "0.4.0-rc.0",
+  "version": "0.5.0-rc.1",
   "description": "Reactive global store with schema-keyed caching on top of RxJS",
   "license": "MIT",
   "type": "module",

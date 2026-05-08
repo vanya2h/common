@@ -11,5 +11,10 @@
     "@vanya2h/utils-rxjs": "0.0.0",
     "@vanya2h/utils-wagmi": "0.0.0"
   },
-  "changesets": ["golden-rivers"]
+  "changesets": [
+    "extract-async-actions",
+    "extract-store",
+    "extract-utils-wagmi",
+    "utils-json-serializer"
+  ]
 }

@@ -1,6 +1,6 @@
 {
   "name": "@vanya2h/utils-wagmi",
-  "version": "0.1.0-rc.0",
+  "version": "0.1.0-rc.1",
   "description": "Wagmi/viem utilities for working with accounts, public clients and wallet clients",
   "license": "MIT",
   "type": "module",

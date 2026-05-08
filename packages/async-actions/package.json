@@ -1,0 +1,49 @@
+{
+  "name": "@vanya2h/async-actions",
+  "version": "0.5.0-rc.1",
+  "description": "Composable async action pipelines with status tracking and retries",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "check-types": "tsc -b --noEmit",
+    "clean": "rimraf ./dist",
+    "dev": "tsup --watch --silent",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prepublishOnly": "pnpm run build",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "immutable": "^5.1.5",
+    "tiny-typed-emitter": "^2.1.0"
+  },
+  "devDependencies": {
+    "@vanya2h/eslint-config": "workspace:*",
+    "@vanya2h/typescript-config": "workspace:*",
+    "eslint": "^9.21.0",
+    "jiti": "^2.4.2",
+    "rimraf": "^6.0.1",
+    "tsup": "^8.3.6",
+    "tsx": "^4.19.2",
+    "vitest": "^3.0.5"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  }
+}

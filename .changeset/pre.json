@@ -1,0 +1,20 @@
+{
+  "mode": "pre",
+  "tag": "rc",
+  "initialVersions": {
+    "@vanya2h/eslint-config": "0.4.0",
+    "@vanya2h/prettier-config": "0.4.0",
+    "@vanya2h/typescript-config": "0.4.0",
+    "@vanya2h/utils": "0.4.0",
+    "@vanya2h/async-actions": "0.4.0",
+    "@vanya2h/store": "0.4.0",
+    "@vanya2h/utils-rxjs": "0.0.0",
+    "@vanya2h/utils-wagmi": "0.0.0"
+  },
+  "changesets": [
+    "extract-async-actions",
+    "extract-store",
+    "extract-utils-wagmi",
+    "utils-json-serializer"
+  ]
+}

@@ -1,4 +1,5 @@
 import jsEslint from "@eslint/js";
+import prettierOptions from "@vanya2h/prettier-config";
 import { Linter } from "eslint";
 import prettierConfig from "eslint-plugin-prettier/recommended";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
@@ -29,7 +30,7 @@ export const config: Linter.Config[] = [
       ],
       "@typescript-eslint/no-explicit-any": "off",
       "turbo/no-undeclared-env-vars": "warn",
-      "prettier/prettier": "warn",
+      "prettier/prettier": ["warn", prettierOptions],
       "simple-import-sort/imports": [
         "error",
         {
@@ -37,10 +38,7 @@ export const config: Linter.Config[] = [
             [
               // Node.js built-in modules
               "^node:",
-              // External packages (excluding @evergonlabs)
-              "^(?!@evergonlabs/)@?\\w",
-              // Internal @evergonlabs monorepo packages
-              "^@evergonlabs/",
+              "^@?\\w",
               // Relative imports
               "^\\.\\.(?!/?$)",
               "^\\.\\./?$",

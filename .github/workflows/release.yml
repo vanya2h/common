@@ -63,6 +63,9 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      - name: Push release tags
+        run: git push --follow-tags
+
       - name: Sync version bumps to staging and develop
         run: |
           for branch in staging develop; do

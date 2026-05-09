@@ -4,28 +4,43 @@ Generate release documentation by analyzing changes since the last release, then
 
 Follow these steps:
 
-1. Read `packages/utils/package.json` and extract the current `version` field. It will be an RC version like `0.7.1-rc.0`. Strip the `-rc.X` suffix to get the stable release version. For example, `0.7.1-rc.0` → `0.7.1`. This is the release version `{version}`.
+1. Determine today's date in ISO format: `date +%Y-%m-%d`. This is `{date}`.
 
-   **Do NOT run `changeset pre exit` or `changeset:bump` locally.** The release workflow handles exiting pre-release mode, bumping versions, and publishing.
+2. Find the last stable release commit. Run `git log --oneline -50` and look for the most recent `RELEASING:` commit whose body lists package versions **without** a `-rc.` suffix — that is the last stable publish. Call its hash `<last-release-hash>`.
 
-2. Run `git log --oneline -30` to see recent history, then find the hash of the most recent commit whose tag is in format `v${version}` — this is the last published release. Call it `<last-release-hash>`.
+   If per-package git tags exist (e.g. `@vanya2h/eslint-config@0.7.0`), use the most recent one instead:
+   ```
+   git tag -l "@vanya2h/*" --sort=-version:refname | head -5
+   ```
 
 3. Run `git log <last-release-hash>..HEAD --oneline` to get all commits since the last release.
 
-4. Run `git diff <last-release-hash>..HEAD --name-only` to get all changed files since the last release.
+4. Run `git diff <last-release-hash>..HEAD --name-only` to get all changed files.
 
-5. For each changed source file (ignore `CHANGELOG.md`, `package.json` version bumps, and changeset files), run `git diff <last-release-hash>..HEAD -- <file>` to understand the actual code changes. Focus on:
+5. Read each pending changeset file in `.changeset/` (ignore `pre.json` and `config.json`) to understand which packages are being bumped and what kind of changes they contain.
+
+6. For each meaningfully changed source file (ignore `CHANGELOG.md`, `package.json` version fields, lockfiles, and changeset files), run `git diff <last-release-hash>..HEAD -- <file>` to understand the actual code changes. Focus on:
    - New exports, functions, types, or modules added
    - Breaking changes (removed or renamed exports, changed signatures)
    - Bug fixes
    - Dependency changes
 
-6. Create the directory `docs/releases/` if it doesn't exist.
+7. Create the directory `docs/releases/` if it doesn't exist.
 
-7. Write a file at `docs/releases/{version}.md` with the following structure:
+8. Write a file at `docs/releases/{date}.md` with the following structure:
 
 ```markdown
-# Release {version}
+# Release {date}
+
+## Packages
+
+| Package | Version |
+| ------- | ------- |
+| `@vanya2h/example` | `0.7.0` |
+
+<!-- List every package being published in this release with its new stable version.
+     Derive versions from the changesets + initialVersions in pre.json:
+     initialVersion + changeset bump type = new stable version. -->
 
 ## Highlights
 
@@ -50,26 +65,26 @@ Follow these steps:
 <!-- Note any dependency additions, removals, or version bumps. Omit if none. -->
 ```
 
-8. Omit any section that has no entries rather than leaving it empty.
+9. Omit any section that has no entries rather than leaving it empty.
 
-9. Keep descriptions concise but informative. Reference specific files/modules when relevant.
+10. Keep descriptions concise but informative. Reference specific files/modules when relevant.
 
-10. Create a new branch named `release/v{version}` from the current branch and push it:
+11. Create a new branch named `release/{date}` from the current branch and push it:
 
     ```
-    git checkout -b release/v{version}
-    git add docs/releases/{version}.md
-    git commit -m "docs: add release notes for v{version}"
-    git push -u origin release/v{version}
+    git checkout -b release/{date}
+    git add docs/releases/{date}.md
+    git commit -m "docs: add release notes for {date}"
+    git push -u origin release/{date}
     ```
 
-11. Read the content of `docs/releases/{version}.md` and create a pull request using the `gh` CLI with:
-    - Title: `Release v{version}`
+12. Read the content of `docs/releases/{date}.md` and create a pull request using the `gh` CLI with:
+    - Title: `Release {date}`
     - Base branch: `main`
     - Body: the full content of the release notes file
 
     ```
-    gh pr create --title "Release v{version}" --base main --body "$(cat docs/releases/{version}.md)"
+    gh pr create --title "Release {date}" --base main --body "$(cat docs/releases/{date}.md)"
     ```
 
-12. Return the PR URL to the user.
+13. Return the PR URL to the user.

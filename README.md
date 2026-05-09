@@ -55,3 +55,75 @@ Then invoke with `/integrate-configs [type]`.
 corepack enable
 pnpm install
 ```
+
+## Release Process
+
+Releases use [Changesets](https://github.com/changesets/changesets) in pre-release `rc` mode. All packages version independently — there is no fixed version group.
+
+### Overview
+
+```
+feature branch  →  PR to develop  (via /pr)
+   develop      →  merged to staging  →  RC published to npm (auto)
+   staging      →  /release-docs  →  PR to main  →  stable published to npm (auto)
+```
+
+### 1. Develop on a feature branch
+
+Make changes on a feature branch off `develop`. When ready to commit, use the `/commit` command — it analyzes your changes, generates an appropriate changeset, and commits everything together.
+
+Open a PR to `develop` using the `/pr` command from your feature branch, then merge it.
+
+### 2. Trigger an RC release
+
+When ready to cut a release candidate, merge `develop` into `staging`:
+
+```sh
+git checkout staging
+git merge develop
+git push
+```
+
+The `rc-release.yml` workflow runs automatically and:
+
+1. Enters pre-release mode if not already active (`changeset pre enter rc`)
+2. Runs `changeset version` — bumps affected packages to `X.Y.Z-rc.N`
+3. Publishes to npm
+4. Pushes per-package git tags (e.g. `@vanya2h/eslint-config@0.7.0-rc.0`)
+5. Syncs the version bump commit back to `develop`
+
+For follow-up fixes, repeat step 1 on a new feature branch and merge to `develop`, then merge `develop` to `staging` again. Each push to `staging` increments the RC counter (`rc.0`, `rc.1`, …).
+
+### 3. Generate release notes and open the stable release PR
+
+Once the RC is verified, run from `staging`:
+
+```
+/release-docs
+```
+
+This creates `docs/releases/YYYY-MM-DD.md` and opens a PR against `main` with the release notes as the body.
+
+### 4. Publish the stable release
+
+Merge the release PR into `main`. The `release.yml` workflow runs automatically and:
+
+1. Exits pre-release mode (`changeset pre exit`)
+2. Runs `changeset version` — strips the `-rc.N` suffix, producing `X.Y.Z`
+3. Publishes to npm
+4. Pushes per-package git tags (e.g. `@vanya2h/eslint-config@0.7.0`)
+5. Syncs the version bump commit back to `staging` and `develop`
+
+### Reference
+
+| Command | Purpose |
+| ------- | ------- |
+| `/commit` | Commit changes with an auto-generated changeset |
+| `/pr` | Open a PR to `develop` |
+| `/release-docs` | Generate release notes and open a PR to `main` |
+| `corepack pnpm build` | Build all packages |
+| `corepack pnpm test` | Run all tests |
+| `corepack pnpm lint` | Lint all packages |
+| `corepack pnpm check-types` | Type-check all packages |
+
+Release notes live in [`docs/releases/`](docs/releases/).

@@ -1,6 +1,6 @@
 {
   "name": "@vanya2h/utils-rxjs",
-  "version": "0.1.1-rc.0",
+  "version": "0.1.1-rc.1",
   "description": "RxJS utilities and operators",
   "license": "MIT",
   "type": "module",

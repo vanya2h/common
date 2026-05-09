@@ -13,6 +13,7 @@
     "@vanya2h/utils-wagmi": "0.1.0"
   },
   "changesets": [
-    "brave-foxes"
+    "brave-foxes",
+    "silent-lions"
   ]
 }

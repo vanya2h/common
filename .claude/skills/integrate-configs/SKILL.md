@@ -194,19 +194,42 @@ If `sort-pkg` already exists, leave it unchanged and note it in the summary.
 
 Check whether `package.json` already has a `"lint"` script. If it does not, add the following without asking.
 
-For a **single-package project**:
+**Single-package project:**
 
 ```json
 "lint": "sort-package-json --check package.json && eslint ./",
 "lint:fix": "sort-package-json package.json && eslint ./ --fix"
 ```
 
-For a **monorepo**:
+**Turborepo monorepo** (`turbo.json` present at root) — root `package.json` delegates to turbo, which runs each package's own scripts:
 
 ```json
-"lint": "sort-package-json --check \"package.json\" \"packages/*/package.json\" && eslint ./",
-"lint:fix": "sort-package-json \"package.json\" \"packages/*/package.json\" && eslint ./ --fix"
+"lint": "sort-package-json --check \"package.json\" \"packages/*/package.json\" && turbo lint",
+"lint:fix": "sort-package-json \"package.json\" \"packages/*/package.json\" && turbo lint:fix"
 ```
+
+Each individual package's `package.json` gets the per-package scripts directly (not via turbo):
+
+```json
+"lint": "eslint ./",
+"lint:fix": "eslint ./ --fix"
+```
+
+Also add `lint:fix` to `turbo.json` if it is not already listed under `tasks`:
+
+```json
+"lint:fix": {
+  "dependsOn": ["^lint:fix"]
+}
+```
+
+**Non-turbo monorepo** — use the package manager's workspace `run` command to delegate to each package:
+
+- pnpm: `"lint:fix": "sort-package-json \"package.json\" \"packages/*/package.json\" && pnpm -r run lint:fix"`
+- yarn: `"lint:fix": "sort-package-json \"package.json\" \"packages/*/package.json\" && yarn workspaces run lint:fix"`
+- npm: `"lint:fix": "sort-package-json \"package.json\" \"packages/*/package.json\" && npm run lint:fix --workspaces"`
+
+Each individual package still gets its own `lint` / `lint:fix` eslint scripts as above.
 
 If a `"lint"` script already exists and looks unrelated to ESLint, leave it and mention it in the summary.
 

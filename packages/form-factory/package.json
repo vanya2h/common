@@ -1,7 +1,7 @@
 {
-  "name": "@vanya2h/store",
+  "name": "@vanya2h/form-factory",
   "version": "0.7.0-rc.0",
-  "description": "Reactive global store with schema-keyed caching on top of RxJS",
+  "description": "Headless schema-driven form factory built on react-hook-form + zod.",
   "license": "MIT",
   "type": "module",
   "exports": {
@@ -29,23 +29,31 @@
     "test": "vitest run --passWithNoTests"
   },
   "dependencies": {
-    "@vanya2h/utils": "workspace:*",
-    "@vanya2h/utils-rxjs": "workspace:*",
-    "immutable": "^5.1.5",
-    "object-hash": "^3.0.0",
-    "rxjs": "^7.8.1",
-    "zod": "^4.3.6"
+    "@hookform/resolvers": "^5.2.2",
+    "p-cancelable": "^4.0.1"
   },
   "devDependencies": {
-    "@types/object-hash": "^3.0.6",
+    "@testing-library/react": "^16.3.2",
+    "@types/react": "^19.2.14",
     "@vanya2h/eslint-config": "workspace:*",
     "@vanya2h/typescript-config": "workspace:*",
-    "eslint": "^9.21.0",
-    "jiti": "^2.4.2",
+    "eslint": "^9.39.2",
+    "jiti": "^2.6.1",
+    "jsdom": "^29.1.1",
+    "react": "^19.2.6",
+    "react-hook-form": "^7.75.0",
     "rimraf": "^6.0.1",
-    "tsup": "^8.3.6",
-    "tsx": "^4.19.2",
-    "vitest": "^3.0.5"
+    "rxjs": "^7.8.2",
+    "tsup": "^8.4.0",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.5",
+    "zod": "^4.4.3"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-hook-form": "^7.0.0",
+    "rxjs": "^7.0.0",
+    "zod": "^4.0.0"
   },
   "publishConfig": {
     "access": "public",

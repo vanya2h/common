@@ -29,6 +29,7 @@ export const config: Linter.Config[] = [
       // should handled by typescript
       "react/prop-types": "off",
       "react/no-children-prop": "off",
+      "react-hooks/set-state-in-effect": "off",
     },
   },
 ] as const;

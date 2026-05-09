@@ -12,5 +12,7 @@
     "@vanya2h/utils-rxjs": "0.1.0",
     "@vanya2h/utils-wagmi": "0.1.0"
   },
-  "changesets": []
+  "changesets": [
+    "brave-foxes"
+  ]
 }

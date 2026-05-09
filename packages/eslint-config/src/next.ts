@@ -3,6 +3,9 @@ import { Linter } from "eslint";
 import { config as reactConfig } from "./react.js";
 
 export const config: Linter.Config[] = [
+  {
+    ignores: [".next/**"],
+  },
   ...reactConfig,
   {
     plugins: {

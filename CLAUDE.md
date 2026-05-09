@@ -55,4 +55,4 @@ Note `turbo.json` makes `test` depend on `build` — turbo will rebuild upstream
 
 ### Shipped Claude Code skill
 
-`skills/integrate-configs/SKILL.md` is published two ways: via `npx skills add vanya2h/common -a claude-code` and via the Claude plugin marketplace (`/plugin marketplace add vanya2h/common`). It installs the three shared configs into a target project. There is also a development copy at `.claude/skills/integrate-configs/SKILL.md` — keep both in sync when editing.
+`skills/integrate-configs/SKILL.md` is published two ways: via `npx skills add vanya2h/common -a claude-code` and via the Claude plugin marketplace (`/plugin marketplace add vanya2h/common`). It installs the three shared configs into a target project. `.claude/skills/integrate-configs` is a symlink to `skills/integrate-configs` — edit only the canonical copy.

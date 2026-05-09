@@ -1,11 +1,11 @@
 ---
 name: integrate-configs
-description: Integrate @vanya2h/eslint-config, @vanya2h/prettier-config, and @vanya2h/typescript-config into the current project. Detects existing configs and asks before replacing them.
+description: Integrate @vanya2h/eslint-config, @vanya2h/prettier-config, @vanya2h/typescript-config, and sort-package-json into the current project. Detects existing configs and asks before replacing them.
 argument-hint: "[base|node|react|lib]"
 allowed-tools: Read Glob Grep Bash
 ---
 
-Integrate `@vanya2h/eslint-config`, `@vanya2h/prettier-config`, and `@vanya2h/typescript-config` into the current project.
+Integrate `@vanya2h/eslint-config`, `@vanya2h/prettier-config`, `@vanya2h/typescript-config`, and `sort-package-json` into the current project.
 
 ## Guiding principle
 
@@ -82,11 +82,14 @@ For `tsconfig.json` specifically: even when replacing, **preserve** user-set `co
 
 Based on which configs will be written, install needed packages per target package (or at workspace root for monorepos using a single shared config). Run installs without asking — show the command line as it runs.
 
-| Config     | Packages                                   |
-| ---------- | ------------------------------------------ |
-| ESLint     | `@vanya2h/eslint-config eslint typescript` |
-| Prettier   | `@vanya2h/prettier-config prettier`        |
-| TypeScript | `@vanya2h/typescript-config typescript`    |
+| Config            | Packages                                   |
+| ----------------- | ------------------------------------------ |
+| ESLint            | `@vanya2h/eslint-config eslint typescript` |
+| Prettier          | `@vanya2h/prettier-config prettier`        |
+| TypeScript        | `@vanya2h/typescript-config typescript`    |
+| sort-package-json | `sort-package-json`                        |
+
+Always install `sort-package-json` regardless of which other configs are selected.
 
 Use the package manager detected in Step 2:
 
@@ -191,18 +194,71 @@ If `tsconfig.json` does not exist, create it from the template below. If it exis
 
 If an existing `tsconfig.json` has `compilerOptions` that would conflict with the shared base in a way you can't auto-resolve (e.g. `strict: false`, mismatched `module`/`target`, custom `jsx` for a non-React project), surface those specific lines to the user and ask whether to keep them or let the shared config win.
 
-## Step 6 — Add lint scripts
+## Step 6 — Add scripts
 
-If `package.json` has no `"lint"` script, add the following without asking:
+### sort-pkg script
+
+Always add `sort-pkg` to `package.json` without asking, mirroring the root pattern exactly.
+
+For a **single-package project**:
 
 ```json
-"lint": "eslint ./",
-"lint:fix": "eslint ./ --fix"
+"sort-pkg": "sort-package-json package.json"
+```
+
+For a **monorepo** (has `pnpm-workspace.yaml`, `lerna.json`, or a `workspaces` field with `packages/*`):
+
+```json
+"sort-pkg": "sort-package-json \"package.json\" \"packages/*/package.json\""
+```
+
+If `sort-pkg` already exists, leave it unchanged and note it in the summary.
+
+### lint scripts
+
+If `package.json` has no `"lint"` script, add the following without asking.
+
+For a **single-package project**:
+
+```json
+"lint": "sort-package-json --check package.json && eslint ./",
+"lint:fix": "sort-package-json package.json && eslint ./ --fix"
+```
+
+For a **monorepo**:
+
+```json
+"lint": "sort-package-json --check \"package.json\" \"packages/*/package.json\" && eslint ./",
+"lint:fix": "sort-package-json \"package.json\" \"packages/*/package.json\" && eslint ./ --fix"
 ```
 
 If a `"lint"` script already exists and looks unrelated to ESLint (e.g. runs a different linter), leave it and mention it in the summary so the user can decide.
 
-## Step 7 — Summary
+## Step 7 — Update README.md
+
+If a `README.md` exists in the target package (or workspace root for monorepos), find the section that documents scripts or commands — typically a heading like `## Scripts`, `## Commands`, `## Development`, or similar. Add entries for each script that was added in Step 6 and is not already documented:
+
+| Script       | Description                                                                 |
+| ------------ | --------------------------------------------------------------------------- |
+| `sort-pkg`   | Sort `package.json` field order using `sort-package-json`.                  |
+| `lint`       | Check `package.json` field order and lint source files with ESLint.         |
+| `lint:fix`   | Fix `package.json` field order and auto-fix ESLint issues.                  |
+
+If no scripts/commands section exists, append one at the end of the file:
+
+````markdown
+## Scripts
+
+| Script       | Description                                                                 |
+| ------------ | --------------------------------------------------------------------------- |
+| `sort-pkg`   | Sort `package.json` field order using `sort-package-json`.                  |
+| `lint`       | Check `package.json` field order and lint source files with ESLint.         |
+| `lint:fix`   | Fix `package.json` field order and auto-fix ESLint issues.                  |
+````
+
+If no `README.md` exists, skip this step entirely — do not create one.
+
+## Step 8 — Summary
 
 Print a short summary listing, per package:
 

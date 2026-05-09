@@ -1,11 +1,11 @@
 ---
 name: integrate-configs
-description: Integrate @vanya2h/eslint-config, @vanya2h/prettier-config, and @vanya2h/typescript-config into the current project. Detects existing configs and asks before replacing them.
+description: Integrate @vanya2h/eslint-config, @vanya2h/prettier-config, @vanya2h/typescript-config, and sort-package-json into the current project. Detects existing configs and asks before replacing them.
 argument-hint: "[base|node|react|lib]"
 allowed-tools: Read Glob Grep Bash
 ---
 
-Integrate `@vanya2h/eslint-config`, `@vanya2h/prettier-config`, and `@vanya2h/typescript-config` into the current project.
+Integrate `@vanya2h/eslint-config`, `@vanya2h/prettier-config`, `@vanya2h/typescript-config`, and `sort-package-json` into the current project.
 
 ## Step 1 — Determine the project type
 
@@ -58,13 +58,14 @@ If the user says **no** for a config, skip that config entirely — do not insta
 
 ## Step 4 — Install packages
 
-Based on which configs the user approved, install only the needed packages:
+Based on which configs the user approved, install only the needed packages. Always install `sort-package-json` regardless of which configs are selected.
 
-| Config approved | Command                                                |
-| --------------- | ------------------------------------------------------ |
-| ESLint          | `<pm> add -D @vanya2h/eslint-config eslint typescript` |
-| Prettier        | `<pm> add -D @vanya2h/prettier-config prettier`        |
-| TypeScript      | `<pm> add -D @vanya2h/typescript-config typescript`    |
+| Config approved   | Command                                                |
+| ----------------- | ------------------------------------------------------ |
+| ESLint            | `<pm> add -D @vanya2h/eslint-config eslint typescript` |
+| Prettier          | `<pm> add -D @vanya2h/prettier-config prettier`        |
+| TypeScript        | `<pm> add -D @vanya2h/typescript-config typescript`    |
+| Always            | `<pm> add -D sort-package-json`                        |
 
 Where `<pm>` is the package manager detected in Step 2. For `pnpm` use `pnpm add -D`, for `yarn` use `yarn add -D`, for `npm` use `npm install --save-dev`.
 
@@ -169,17 +170,70 @@ Check if `tsconfig.json` exists:
 
 When updating an existing `tsconfig.json`, preserve all other fields — only add/replace `"extends"`. Do not clobber `compilerOptions` or `include` that the user already has.
 
-## Step 6 — Add lint scripts (optional)
+## Step 6 — Add scripts
 
-Check whether `package.json` already has a `"lint"` script. If it does not, offer to add:
+### sort-pkg script
+
+Always add `sort-pkg` to `package.json` without asking, mirroring the root pattern exactly.
+
+For a **single-package project**:
 
 ```json
-"lint": "eslint ./",
-"lint:fix": "eslint ./ --fix"
+"sort-pkg": "sort-package-json package.json"
 ```
 
-Ask: "Add lint scripts to package.json? (yes/no)"
+For a **monorepo** (has `pnpm-workspace.yaml`, `lerna.json`, or a `workspaces` field with `packages/*`):
 
-## Step 7 — Summary
+```json
+"sort-pkg": "sort-package-json \"package.json\" \"packages/*/package.json\""
+```
+
+If `sort-pkg` already exists, leave it unchanged and note it in the summary.
+
+### lint scripts
+
+Check whether `package.json` already has a `"lint"` script. If it does not, add the following without asking.
+
+For a **single-package project**:
+
+```json
+"lint": "sort-package-json --check package.json && eslint ./",
+"lint:fix": "sort-package-json package.json && eslint ./ --fix"
+```
+
+For a **monorepo**:
+
+```json
+"lint": "sort-package-json --check \"package.json\" \"packages/*/package.json\" && eslint ./",
+"lint:fix": "sort-package-json \"package.json\" \"packages/*/package.json\" && eslint ./ --fix"
+```
+
+If a `"lint"` script already exists and looks unrelated to ESLint, leave it and mention it in the summary.
+
+## Step 7 — Update README.md
+
+If a `README.md` exists in the target package (or workspace root for monorepos), find the section that documents scripts or commands — typically a heading like `## Scripts`, `## Commands`, `## Development`, or similar. Add entries for each script that was added in Step 6 and is not already documented:
+
+| Script       | Description                                                                 |
+| ------------ | --------------------------------------------------------------------------- |
+| `sort-pkg`   | Sort `package.json` field order using `sort-package-json`.                  |
+| `lint`       | Check `package.json` field order and lint source files with ESLint.         |
+| `lint:fix`   | Fix `package.json` field order and auto-fix ESLint issues.                  |
+
+If no scripts/commands section exists, append one at the end of the file:
+
+````markdown
+## Scripts
+
+| Script       | Description                                                                 |
+| ------------ | --------------------------------------------------------------------------- |
+| `sort-pkg`   | Sort `package.json` field order using `sort-package-json`.                  |
+| `lint`       | Check `package.json` field order and lint source files with ESLint.         |
+| `lint:fix`   | Fix `package.json` field order and auto-fix ESLint issues.                  |
+````
+
+If no `README.md` exists, skip this step entirely — do not create one.
+
+## Step 8 — Summary
 
 Print a short summary of what was installed and what files were created or skipped.

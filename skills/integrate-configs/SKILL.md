@@ -266,26 +266,68 @@ Each individual package still gets its own `lint` / `lint:fix` eslint scripts as
 
 If a `"lint"` script already exists and looks unrelated to ESLint (e.g. runs a different linter), leave it and mention it in the summary so the user can decide.
 
+### check-types script
+
+If `package.json` has no `"check-types"` script, add the following without asking.
+
+**Single-package project:**
+
+```json
+"check-types": "tsc -b --noEmit"
+```
+
+**Turborepo monorepo** (`turbo.json` present at root) — root `package.json` delegates to turbo:
+
+```json
+"check-types": "turbo check-types"
+```
+
+Each individual package's `package.json` gets the per-package script directly (not via turbo):
+
+```json
+"check-types": "tsc -b --noEmit"
+```
+
+Also add `check-types` to `turbo.json` if it is not already listed under `tasks`:
+
+```json
+"check-types": {
+  "dependsOn": ["^check-types"]
+}
+```
+
+**Non-turbo monorepo** — use the package manager's workspace `run` command to delegate to each package:
+
+- pnpm: `"check-types": "pnpm -r run check-types"`
+- yarn: `"check-types": "yarn workspaces run check-types"`
+- npm: `"check-types": "npm run check-types --workspaces"`
+
+Each individual package still gets its own `check-types` script as above.
+
+If a `"check-types"` script already exists, leave it unchanged and note it in the summary.
+
 ## Step 7 — Update README.md
 
 If a `README.md` exists in the target package (or workspace root for monorepos), find the section that documents scripts or commands — typically a heading like `## Scripts`, `## Commands`, `## Development`, or similar. Add entries for each script that was added in Step 6 and is not already documented:
 
-| Script     | Description                                                         |
-| ---------- | ------------------------------------------------------------------- |
-| `sort-pkg` | Sort `package.json` field order using `sort-package-json`.          |
-| `lint`     | Check `package.json` field order and lint source files with ESLint. |
-| `lint:fix` | Fix `package.json` field order and auto-fix ESLint issues.          |
+| Script        | Description                                                         |
+| ------------- | ------------------------------------------------------------------- |
+| `sort-pkg`    | Sort `package.json` field order using `sort-package-json`.          |
+| `lint`        | Check `package.json` field order and lint source files with ESLint. |
+| `lint:fix`    | Fix `package.json` field order and auto-fix ESLint issues.          |
+| `check-types` | Type-check the project with `tsc`.                                  |
 
 If no scripts/commands section exists, append one at the end of the file:
 
 ```markdown
 ## Scripts
 
-| Script     | Description                                                         |
-| ---------- | ------------------------------------------------------------------- |
-| `sort-pkg` | Sort `package.json` field order using `sort-package-json`.          |
-| `lint`     | Check `package.json` field order and lint source files with ESLint. |
-| `lint:fix` | Fix `package.json` field order and auto-fix ESLint issues.          |
+| Script        | Description                                                         |
+| ------------- | ------------------------------------------------------------------- |
+| `sort-pkg`    | Sort `package.json` field order using `sort-package-json`.          |
+| `lint`        | Check `package.json` field order and lint source files with ESLint. |
+| `lint:fix`    | Fix `package.json` field order and auto-fix ESLint issues.          |
+| `check-types` | Type-check the project with `tsc`.                                  |
 ```
 
 If no `README.md` exists, skip this step entirely — do not create one.

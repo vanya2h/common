@@ -37,6 +37,7 @@ Otherwise, detect the type per package:
    > 2. `node` — Node.js app or server
    > 3. `react` — React / browser app
    > 4. `lib` — TypeScript library (builds to ESNext/Bundler)
+   > 5. `next` — Next.js app
 
    If multiple packages are ambiguous, batch them into a single prompt.
 
@@ -126,6 +127,14 @@ export default [...config];
 
 ```js
 import { config } from "@vanya2h/eslint-config/react";
+
+export default [...config];
+```
+
+**next:**
+
+```js
+import { config } from "@vanya2h/eslint-config/next";
 
 export default [...config];
 ```
@@ -238,23 +247,23 @@ If a `"lint"` script already exists and looks unrelated to ESLint (e.g. runs a d
 
 If a `README.md` exists in the target package (or workspace root for monorepos), find the section that documents scripts or commands — typically a heading like `## Scripts`, `## Commands`, `## Development`, or similar. Add entries for each script that was added in Step 6 and is not already documented:
 
-| Script       | Description                                                                 |
-| ------------ | --------------------------------------------------------------------------- |
-| `sort-pkg`   | Sort `package.json` field order using `sort-package-json`.                  |
-| `lint`       | Check `package.json` field order and lint source files with ESLint.         |
-| `lint:fix`   | Fix `package.json` field order and auto-fix ESLint issues.                  |
+| Script     | Description                                                         |
+| ---------- | ------------------------------------------------------------------- |
+| `sort-pkg` | Sort `package.json` field order using `sort-package-json`.          |
+| `lint`     | Check `package.json` field order and lint source files with ESLint. |
+| `lint:fix` | Fix `package.json` field order and auto-fix ESLint issues.          |
 
 If no scripts/commands section exists, append one at the end of the file:
 
-````markdown
+```markdown
 ## Scripts
 
-| Script       | Description                                                                 |
-| ------------ | --------------------------------------------------------------------------- |
-| `sort-pkg`   | Sort `package.json` field order using `sort-package-json`.                  |
-| `lint`       | Check `package.json` field order and lint source files with ESLint.         |
-| `lint:fix`   | Fix `package.json` field order and auto-fix ESLint issues.                  |
-````
+| Script     | Description                                                         |
+| ---------- | ------------------------------------------------------------------- |
+| `sort-pkg` | Sort `package.json` field order using `sort-package-json`.          |
+| `lint`     | Check `package.json` field order and lint source files with ESLint. |
+| `lint:fix` | Fix `package.json` field order and auto-fix ESLint issues.          |
+```
 
 If no `README.md` exists, skip this step entirely — do not create one.
 

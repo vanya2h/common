@@ -14,6 +14,7 @@ Monorepo with shared utility packages used across my projects.
 | [`@vanya2h/store`](packages/store)                         | Reactive global store with schema-keyed caching on top of RxJS             |
 | [`@vanya2h/async-actions`](packages/async-actions)         | Composable async action pipelines with status tracking and retries         |
 | [`@vanya2h/utils-wagmi`](packages/utils-wagmi)             | Wagmi/viem utilities for accounts, public clients and wallet clients       |
+| [`@vanya2h/form-factory`](packages/form-factory)           | Headless React form factory built on react-hook-form, Zod, and RxJS       |
 
 ## Agent Skills
 

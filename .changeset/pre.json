@@ -14,5 +14,9 @@
     "@vanya2h/utils-rxjs-react": "0.7.0",
     "@vanya2h/utils-wagmi": "0.7.0"
   },
-  "changesets": []
+  "changesets": [
+    "add-store-react",
+    "add-utils-rxjs-react",
+    "utils-rxjs-export-observable-like"
+  ]
 }

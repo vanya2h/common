@@ -238,6 +238,61 @@ importers:
         specifier: ^3.0.5
         version: 3.2.4(@types/node@25.5.0)(jiti@2.6.1)(jsdom@29.1.1(@noble/hashes@1.8.0))(lightningcss@1.32.0)(tsx@4.21.0)
 
+  packages/store-react:
+    dependencies:
+      '@vanya2h/store':
+        specifier: workspace:*
+        version: link:../store
+      '@vanya2h/utils':
+        specifier: workspace:*
+        version: link:../utils
+      '@vanya2h/utils-rxjs':
+        specifier: workspace:*
+        version: link:../utils-rxjs
+      '@vanya2h/utils-rxjs-react':
+        specifier: workspace:*
+        version: link:../utils-rxjs-react
+    devDependencies:
+      '@testing-library/react':
+        specifier: ^16.3.2
+        version: 16.3.2(@testing-library/dom@10.4.1)(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      '@types/react':
+        specifier: ^19.2.14
+        version: 19.2.14
+      '@vanya2h/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@vanya2h/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      eslint:
+        specifier: ^9.39.2
+        version: 9.39.4(jiti@2.6.1)
+      jiti:
+        specifier: ^2.6.1
+        version: 2.6.1
+      jsdom:
+        specifier: ^29.1.1
+        version: 29.1.1(@noble/hashes@1.8.0)
+      react:
+        specifier: ^19.2.6
+        version: 19.2.6
+      rimraf:
+        specifier: ^6.0.1
+        version: 6.1.3
+      rxjs:
+        specifier: ^7.8.2
+        version: 7.8.2
+      tsup:
+        specifier: ^8.4.0
+        version: 8.5.1(jiti@2.6.1)(postcss@8.5.8)(tsx@4.21.0)(typescript@5.9.3)
+      vitest:
+        specifier: ^3.0.5
+        version: 3.2.4(@types/node@25.5.0)(jiti@2.6.1)(jsdom@29.1.1(@noble/hashes@1.8.0))(lightningcss@1.32.0)(tsx@4.21.0)
+      zod:
+        specifier: 4.3.6
+        version: 4.3.6
+
   packages/typescript-config:
     dependencies:
       typescript:

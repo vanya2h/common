@@ -31,6 +31,7 @@ Internal `workspace:*` deps form this graph — keep it in mind when changing pu
 
 - `utils` — base utilities (`common`, `typeUtils`, `zod`, `models`); the only multi-entry package (`tsup` emits one bundle per subpath, mirrored in `exports`).
 - `utils-rxjs` → depends on `utils`. RxJS helpers: `batcher`, `createCache`, `persistBehaviorSubject` (with localStorage / stub-transport persistors), `wrapped` status helpers.
+- `utils-rxjs-react` → depends on `utils-rxjs`. React bindings for RxJS: `useObservable` (concurrent-safe `useSyncExternalStore`), `usePending` (status state machine with `onReload`), `<Pending>`, `<BehaviorSubjectRender>`, `<OnlyIfTruthy>`. Uses the `react` typescript-config and `jsdom` for vitest.
 - `store` → depends on `utils` + `utils-rxjs`. Reactive global store with schema-keyed caching (`createGlobalStore`, `createStoreDescriptor`, `fromFetcher`).
 - `async-actions` — standalone. Composable async action pipelines (`ActionSingle`, `ActionsSet`) on top of `tiny-typed-emitter` and `immutable.List`.
 - `utils-wagmi` → depends on `utils`. Wagmi/viem account + client helpers.

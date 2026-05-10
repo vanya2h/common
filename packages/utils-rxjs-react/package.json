@@ -1,0 +1,58 @@
+{
+  "name": "@vanya2h/utils-rxjs-react",
+  "version": "0.7.0",
+  "description": "React hooks and components for RxJS observables",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "check-types": "tsc -b --noEmit",
+    "clean": "rimraf ./dist",
+    "dev": "tsup --watch --silent",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "prepublishOnly": "pnpm run build",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@vanya2h/utils-rxjs": "workspace:*",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.3.2",
+    "@types/lodash": "^4.17.24",
+    "@types/react": "^19.2.14",
+    "@vanya2h/eslint-config": "workspace:*",
+    "@vanya2h/typescript-config": "workspace:*",
+    "eslint": "^9.39.2",
+    "jiti": "^2.6.1",
+    "jsdom": "^29.1.1",
+    "react": "^19.2.6",
+    "rimraf": "^6.0.1",
+    "rxjs": "^7.8.2",
+    "tsup": "^8.4.0",
+    "vitest": "^3.0.5"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "rxjs": "^7.0.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  }
+}

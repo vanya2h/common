@@ -1,6 +1,6 @@
 {
   "name": "@vanya2h/utils-rxjs-react",
-  "version": "0.8.0-rc.0",
+  "version": "0.8.0-rc.1",
   "description": "React hooks and components for RxJS observables",
   "license": "MIT",
   "type": "module",

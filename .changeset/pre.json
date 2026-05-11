@@ -17,6 +17,7 @@
   "changesets": [
     "add-store-react",
     "add-utils-rxjs-react",
+    "fix-use-observable-ssr",
     "utils-rxjs-export-observable-like"
   ]
 }

@@ -1,8 +1,10 @@
 import { useCallback, useRef, useSyncExternalStore } from "react";
 import { Observable } from "rxjs";
 
-export function useObservable<T>(observable: Observable<T>, initialValue: T): T {
-  const valueRef = useRef<T>(initialValue);
+export function useObservable<T>(observable: Observable<T>, initialValue: T): T;
+export function useObservable<T>(observable: Observable<T>): T | undefined;
+export function useObservable<T>(observable: Observable<T>, initialValue?: T): T | undefined {
+  const valueRef = useRef<T | undefined>(initialValue);
 
   const subscribe = useCallback(
     (onChange: () => void) => {
@@ -17,5 +19,9 @@ export function useObservable<T>(observable: Observable<T>, initialValue: T): T 
     [observable],
   );
 
-  return useSyncExternalStore(subscribe, () => valueRef.current);
+  return useSyncExternalStore(
+    subscribe,
+    () => valueRef.current,
+    () => initialValue,
+  );
 }

@@ -39,6 +39,14 @@ describe("useObservable", () => {
     expect(active).toBe(0);
   });
 
+  it("returns undefined before the source emits when no initialValue is given", () => {
+    const subject = new Subject<number>();
+    const { result } = renderHook(() => useObservable(subject));
+    expect(result.current).toBeUndefined();
+    act(() => subject.next(5));
+    expect(result.current).toBe(5);
+  });
+
   it("resubscribes when the observable identity changes", () => {
     const a = new BehaviorSubject(1);
     const b = new BehaviorSubject(2);

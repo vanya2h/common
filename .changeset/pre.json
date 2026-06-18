@@ -1,0 +1,18 @@
+{
+  "mode": "pre",
+  "tag": "rc",
+  "initialVersions": {
+    "@vanya2h/async-actions": "0.7.0",
+    "@vanya2h/eslint-config": "0.7.0",
+    "@vanya2h/form-factory": "0.7.0",
+    "@vanya2h/prettier-config": "0.7.0",
+    "@vanya2h/store": "0.7.1",
+    "@vanya2h/store-react": "0.2.0",
+    "@vanya2h/typescript-config": "0.7.0",
+    "@vanya2h/utils": "0.7.0",
+    "@vanya2h/utils-rxjs": "0.8.0",
+    "@vanya2h/utils-rxjs-react": "0.8.0",
+    "@vanya2h/utils-wagmi": "0.7.0"
+  },
+  "changesets": []
+}

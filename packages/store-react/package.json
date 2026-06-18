@@ -1,6 +1,6 @@
 {
   "name": "@vanya2h/store-react",
-  "version": "0.2.0-rc.1",
+  "version": "0.2.0",
   "description": "React bindings for @vanya2h/store",
   "license": "MIT",
   "type": "module",

@@ -66,6 +66,34 @@ jobs:
       - name: Push release tags
         run: git push --follow-tags
 
+      - name: Create GitHub release
+        # Packages are versioned independently (no single repo version), so the
+        # release is keyed off the curated notes doc that the release/{date} PR
+        # adds under docs/releases/. We pick the doc from the most recent commit
+        # that touched docs/releases (the merged release PR) rather than the
+        # current date, since a release/{date} branch may merge on a later day.
+        env:
+          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
+        run: |
+          NOTES=$(git log -1 --pretty=format: --name-only -- docs/releases \
+            | grep -E '^docs/releases/.+\.md$' | head -n1)
+
+          if [ -z "$NOTES" ] || [ ! -f "$NOTES" ]; then
+            echo "::warning::No release notes found under docs/releases/; skipping GitHub release."
+            exit 0
+          fi
+
+          NAME=$(basename "$NOTES" .md)   # e.g. 2026-05-09
+          TAG="release-${NAME}"
+
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG already exists, skipping."
+            exit 0
+          fi
+
+          echo "Creating GitHub release $TAG from $NOTES"
+          gh release create "$TAG" --title "Release ${NAME}" --notes-file "$NOTES"
+
       - name: Sync version bumps to staging and develop
         run: |
           for branch in staging develop; do

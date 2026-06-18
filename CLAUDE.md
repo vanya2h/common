@@ -31,7 +31,9 @@ Internal `workspace:*` deps form this graph — keep it in mind when changing pu
 
 - `utils` — base utilities (`common`, `typeUtils`, `zod`, `models`); the only multi-entry package (`tsup` emits one bundle per subpath, mirrored in `exports`).
 - `utils-rxjs` → depends on `utils`. RxJS helpers: `batcher`, `createCache`, `persistBehaviorSubject` (with localStorage / stub-transport persistors), `wrapped` status helpers.
+- `utils-rxjs-react` → depends on `utils-rxjs`. React bindings for RxJS: `useObservable` (concurrent-safe `useSyncExternalStore`), `usePending` (status state machine with `onReload`), `<Pending>`, `<BehaviorSubjectRender>`, `<OnlyIfTruthy>`. Uses the `react` typescript-config and `jsdom` for vitest.
 - `store` → depends on `utils` + `utils-rxjs`. Reactive global store with schema-keyed caching (`createGlobalStore`, `createStoreDescriptor`, `fromFetcher`).
+- `store-react` → depends on `store` + `utils` + `utils-rxjs` + `utils-rxjs-react`. React hooks for the global store: `useStoreValue` (status-aware), `useStoreCache` (direct cache access). Pins `zod` to the same exact version as `store` (currently `4.3.6`) so `dts` emit doesn't see two `z.ZodType` types.
 - `async-actions` — standalone. Composable async action pipelines (`ActionSingle`, `ActionsSet`) on top of `tiny-typed-emitter` and `immutable.List`.
 - `utils-wagmi` → depends on `utils`. Wagmi/viem account + client helpers.
 - `eslint-config`, `prettier-config`, `typescript-config` — shared dev-time configs. `eslint-config` exports `base` / `node` / `react` subpaths; the root `eslint.config.js` consumes the `node` config.

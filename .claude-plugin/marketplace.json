@@ -7,8 +7,14 @@
   "plugins": [
     {
       "name": "integrate-configs",
-      "source": ".",
+      "source": "skills/integrate-configs",
       "description": "Integrate @vanya2h/eslint-config, @vanya2h/prettier-config, and @vanya2h/typescript-config into any TypeScript project. Detects existing configs and asks before replacing.",
+      "version": "1.0.0"
+    },
+    {
+      "name": "setup-release",
+      "source": "skills/setup-release",
+      "description": "Set up a Changesets-based release process for a JavaScript/TypeScript repository (monorepo or single-package).",
       "version": "1.0.0"
     }
   ]

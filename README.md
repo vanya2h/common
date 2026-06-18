@@ -11,7 +11,9 @@ Monorepo with shared utility packages used across my projects.
 | [`@vanya2h/typescript-config`](packages/typescript-config) | Shared TypeScript configs (base, node, lib, react)                         |
 | [`@vanya2h/utils`](packages/utils)                         | Common TypeScript utilities and type helpers (incl. `jsonSerializer`)      |
 | [`@vanya2h/utils-rxjs`](packages/utils-rxjs)               | RxJS helpers: `batcher`, `createCache`, `persistBehaviorSubject`, `wrapped`|
+| [`@vanya2h/utils-rxjs-react`](packages/utils-rxjs-react)   | React bindings for RxJS: `useObservable`, `usePending`, `<Pending>`        |
 | [`@vanya2h/store`](packages/store)                         | Reactive global store with schema-keyed caching on top of RxJS             |
+| [`@vanya2h/store-react`](packages/store-react)             | React bindings for `@vanya2h/store`: `useStoreValue`, `useStoreCache`      |
 | [`@vanya2h/async-actions`](packages/async-actions)         | Composable async action pipelines with status tracking and retries         |
 | [`@vanya2h/utils-wagmi`](packages/utils-wagmi)             | Wagmi/viem utilities for accounts, public clients and wallet clients       |
 | [`@vanya2h/form-factory`](packages/form-factory)           | Headless React form factory built on react-hook-form, Zod, and RxJS       |
